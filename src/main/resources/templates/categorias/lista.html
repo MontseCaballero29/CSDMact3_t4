@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías | Dulce Luna</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="encabezado">
+    <a class="marca" th:href="@{/}">Dulce Luna</a>
+    <nav>
+        <a th:href="@{/productos}">Productos</a>
+        <a class="activo" th:href="@{/categorias}">Categorías</a>
+        <a th:href="@{/api/categorias}" target="_blank">API</a>
+    </nav>
+</header>
+
+<main class="contenedor">
+    <section class="titulo-pagina">
+        <div>
+            <p class="etiqueta">Entidad relacionada</p>
+            <h1>Categorías</h1>
+            <p>Cada categoría puede estar asociada con muchos productos.</p>
+        </div>
+    </section>
+
+    <div class="alerta exito" th:if="${mensaje}" th:text="${mensaje}"></div>
+    <div class="alerta error" th:if="${error}" th:text="${error}"></div>
+
+    <div class="rejilla-categorias">
+        <form class="panel formulario categoria-formulario"
+              th:action="@{/categorias/guardar}"
+              th:object="${categoria}"
+              method="post">
+            <h2>Nueva categoría</h2>
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" th:field="*{nombre}" maxlength="80" placeholder="Ej. Galletas">
+                <small class="error-campo" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+            </div>
+            <div class="campo">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" th:field="*{descripcion}" maxlength="250" rows="4"></textarea>
+                <small class="error-campo" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+            </div>
+            <button class="boton boton-primario" type="submit">Guardar categoría</button>
+        </form>
+
+        <section class="panel lista-categorias">
+            <article class="categoria-item" th:each="item : ${categorias}">
+                <div>
+                    <h2 th:text="${item.nombre}"></h2>
+                    <p th:text="${item.descripcion ?: 'Sin descripción'}"></p>
+                    <span th:text="|ID: ${item.id}|"></span>
+                </div>
+                <form th:action="@{/categorias/eliminar/{id}(id=${item.id})}"
+                      method="post"
+                      onsubmit="return confirm('Solo se puede eliminar si no tiene productos. ¿Continuar?');">
+                    <button class="accion eliminar" type="submit">Eliminar</button>
+                </form>
+            </article>
+        </section>
+    </div>
+</main>
+</body>
+</html>

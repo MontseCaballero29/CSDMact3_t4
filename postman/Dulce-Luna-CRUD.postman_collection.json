@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "9cf7e756-4f2f-45d4-a9fc-7d6135aab137",
+    "name": "Dulce Luna - CRUD",
+    "description": "Colección para probar categorías y el CRUD completo de productos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8086"
+    },
+    {
+      "key": "productoId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Listar categorías",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/categorias"
+          }
+        },
+        {
+          "name": "Crear categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Galletas\",\n  \"descripcion\": \"Galletas artesanales\"\n}"
+            },
+            "url": "{{baseUrl}}/api/categorias"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos CRUD",
+      "item": [
+        {
+          "name": "Crear producto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pastel Luna\",\n  \"sabor\": \"Chocolate\",\n  \"descripcion\": \"Pastel de chocolate con decoración lunar\",\n  \"precio\": 450.00,\n  \"disponible\": true,\n  \"categoriaId\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/productos"
+          }
+        },
+        {
+          "name": "Listar productos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/productos"
+          }
+        },
+        {
+          "name": "Consultar producto por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/productos/{{productoId}}"
+          }
+        },
+        {
+          "name": "Actualizar producto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pastel Luna actualizado\",\n  \"sabor\": \"Chocolate y fresa\",\n  \"descripcion\": \"Producto actualizado desde Postman\",\n  \"precio\": 490.00,\n  \"disponible\": true,\n  \"categoriaId\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/productos/{{productoId}}"
+          }
+        },
+        {
+          "name": "Eliminar producto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/productos/{{productoId}}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${producto.id == null ? 'Nuevo producto' : 'Editar producto'} + ' | Dulce Luna'"></title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="encabezado">
+    <a class="marca" th:href="@{/}">Dulce Luna</a>
+    <nav>
+        <a class="activo" th:href="@{/productos}">Productos</a>
+        <a th:href="@{/categorias}">Categorías</a>
+        <a th:href="@{/api/productos}" target="_blank">API</a>
+    </nav>
+</header>
+
+<main class="contenedor contenedor-formulario">
+    <section class="titulo-pagina">
+        <div>
+            <p class="etiqueta" th:text="${producto.id == null ? 'Crear' : 'Actualizar'}"></p>
+            <h1 th:text="${producto.id == null ? 'Nuevo producto' : 'Editar producto'}"></h1>
+            <p>Los datos se guardarán realmente en MySQL.</p>
+        </div>
+    </section>
+
+    <form class="panel formulario" th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" th:field="*{nombre}" maxlength="100" placeholder="Ej. Pastel Luna de chocolate">
+            <small class="error-campo" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+        </div>
+
+        <div class="rejilla-dos">
+            <div class="campo">
+                <label for="sabor">Sabor</label>
+                <input id="sabor" type="text" th:field="*{sabor}" maxlength="80" placeholder="Ej. Chocolate">
+                <small class="error-campo" th:if="${#fields.hasErrors('sabor')}" th:errors="*{sabor}"></small>
+            </div>
+
+            <div class="campo">
+                <label for="precio">Precio</label>
+                <input id="precio" type="number" th:field="*{precio}" min="0.01" step="0.01" placeholder="0.00">
+                <small class="error-campo" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="categoriaId">Categoría</label>
+            <select id="categoriaId" th:field="*{categoriaId}">
+                <option value="">Selecciona una categoría</option>
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nombre}">
+                </option>
+            </select>
+            <small class="error-campo" th:if="${#fields.hasErrors('categoriaId')}" th:errors="*{categoriaId}"></small>
+        </div>
+
+        <div class="campo">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" th:field="*{descripcion}" maxlength="400" rows="5"
+                      placeholder="Describe el producto"></textarea>
+            <small class="error-campo" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+        </div>
+
+        <label class="interruptor">
+            <input type="checkbox" th:field="*{disponible}">
+            <span>Producto disponible</span>
+        </label>
+
+        <div class="acciones-formulario">
+            <a class="boton boton-secundario" th:href="@{/productos}">Cancelar</a>
+            <button class="boton boton-primario" type="submit"
+                    th:text="${producto.id == null ? 'Crear producto' : 'Guardar cambios'}"></button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Luna</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="encabezado">
+    <a class="marca" th:href="@{/}">Dulce Luna</a>
+    <nav>
+        <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/categorias}">Categorías</a>
+        <a th:href="@{/api/productos}" target="_blank">API</a>
+    </nav>
+</header>
+
+<main class="portada">
+    <div class="portada-contenido">
+        <p class="etiqueta">Pastelería artesanal</p>
+        <h1>CRUD Dulce Luna</h1>
+        <p class="descripcion-grande">
+            Administra productos y categorías con Spring Boot, Thymeleaf,
+            Spring Data JPA y MySQL.
+        </p>
+        <div class="acciones-portada">
+            <a class="boton boton-primario" th:href="@{/productos}">Ver productos</a>
+            <a class="boton boton-secundario" th:href="@{/productos/nuevo}">Agregar producto</a>
+        </div>
+    </div>
+
+    <section class="tarjeta-relacion">
+        <span>Relación JPA</span>
+        <strong>Categoría 1 ─── N Productos</strong>
+        <p>Una categoría puede contener muchos productos y cada producto pertenece a una categoría.</p>
+    </section>
+</main>
+</body>
+</html>
