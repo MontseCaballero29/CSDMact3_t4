@@ -6,8 +6,10 @@
 
 **Actividad 3 — Tema 4**
 
-**Estudiante:** Dalia Montserrat Caballero Silva
-**Carrera:** Ingeniería en Sistemas Computacionales
+**Estudiante:** Dalia Montserrat Caballero Silva  
+**Carrera:** Ingeniería en Sistemas Computacionales  
+**Materia:** Programación Web  
+**Docente:** Adelina Martínez Nieto  
 
 </div>
 
